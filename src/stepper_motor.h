@@ -3,7 +3,6 @@
 
 #include "std/initializer_list.h"
 
-namespace HWP {
 namespace StepperMotor {
 
 const static uint16_t STEPS_PER_ROTATION = 510;
@@ -28,6 +27,5 @@ class Driver {
 };
 
 } // namespace StepMotor
-} // namespace HWP
 
 #endif // _STEPPER_MOTOR
