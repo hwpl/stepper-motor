@@ -41,9 +41,9 @@ void StepperMotor::Driver::turn(int16_t degree) {
     }
 }
 
-void StepperMotor::Driver::turnTo(uint16_t targetDegree) {
-    targetDegree = targetDegree % 360;
-    uint16_t target_step_position = ((uint32_t)targetDegree * steps_per_rotation / 360) % steps_per_rotation;
+void StepperMotor::Driver::turnTo(uint16_t target_angle) {
+    target_angle = target_angle % 360;
+    uint16_t target_step_position = ((uint32_t)target_angle * steps_per_rotation / 360) % steps_per_rotation;
 
     while(target_step_position != current_step_position) {
         if(current_step_position > target_step_position && current_step_position - target_step_position < steps_per_rotation / 2 ||
@@ -54,7 +54,7 @@ void StepperMotor::Driver::turnTo(uint16_t targetDegree) {
         }
     }
 
-    current_degree_position = targetDegree;
+    current_degree_position = target_angle;
     resetPins();
 }
 
