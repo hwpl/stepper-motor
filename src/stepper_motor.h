@@ -54,7 +54,7 @@ class Driver {
         void setStepsPerRotation(uint16_t steps);
 
     private:
-        uint8_t pins[4];
+        uint8_t pins[4] = {-1, -1, -1, -1};
         uint16_t steps_per_rotation = 510;
         uint16_t current_step_position = 0;
         uint16_t current_degree_position = 0;
