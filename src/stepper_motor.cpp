@@ -26,7 +26,7 @@ void StepperMotor::Driver::turn(int16_t degree) {
         uint8_t rotations = -degree / 360;
         degree = -degree % 360;
 
-        for(uint16_t steps = 0; steps < rotations * STEPS_PER_ROTATION; ++steps) {
+        for(uint16_t steps = 0; steps < rotations * steps_per_rotation; ++steps) {
             stepBackward();
         }
         turnTo(((int16_t)current_degree_position - degree + 360) % 360);
@@ -34,7 +34,7 @@ void StepperMotor::Driver::turn(int16_t degree) {
         uint8_t rotations = degree / 360;
         degree = degree % 360;
 
-        for(uint16_t steps = 0; steps < rotations * STEPS_PER_ROTATION; ++steps) {
+        for(uint16_t steps = 0; steps < rotations * steps_per_rotation; ++steps) {
             stepForward();
         }
         turnTo(((int16_t)current_degree_position + degree) % 360);
@@ -43,11 +43,11 @@ void StepperMotor::Driver::turn(int16_t degree) {
 
 void StepperMotor::Driver::turnTo(uint16_t targetDegree) {
     targetDegree = targetDegree % 360;
-    uint16_t target_step_position = ((uint32_t)targetDegree * STEPS_PER_ROTATION / 360) % STEPS_PER_ROTATION;
+    uint16_t target_step_position = ((uint32_t)targetDegree * steps_per_rotation / 360) % steps_per_rotation;
 
     while(target_step_position != current_step_position) {
-        if(current_step_position > target_step_position && current_step_position - target_step_position < STEPS_PER_ROTATION / 2 ||
-           current_step_position < target_step_position && target_step_position - current_step_position > STEPS_PER_ROTATION / 2) {
+        if(current_step_position > target_step_position && current_step_position - target_step_position < steps_per_rotation / 2 ||
+           current_step_position < target_step_position && target_step_position - current_step_position > steps_per_rotation / 2) {
             stepBackward();
         } else {
             stepForward();
@@ -58,8 +58,13 @@ void StepperMotor::Driver::turnTo(uint16_t targetDegree) {
     resetPins();
 }
 
+void StepperMotor::Driver::setStepsPerRotation(uint16_t steps) {
+    steps_per_rotation = steps;
+}
+
+
 void StepperMotor::Driver::stepForward() {
-    current_step_position = (current_step_position + 1) % STEPS_PER_ROTATION;
+    current_step_position = (current_step_position + 1) % steps_per_rotation;
     for(size_t i = 0; i < 8; ++i) {
         executeStep(pgm_read_byte_near(STEP_SEQUENCE + i));
         delayMicroseconds(800);
@@ -67,7 +72,7 @@ void StepperMotor::Driver::stepForward() {
 }
 
 void StepperMotor::Driver::stepBackward() {
-    current_step_position = (current_step_position + STEPS_PER_ROTATION - 1) % STEPS_PER_ROTATION;
+    current_step_position = (current_step_position + steps_per_rotation - 1) % steps_per_rotation;
     for(size_t i = 0; i < 8; ++i) {
         executeStep(pgm_read_byte_near(STEP_SEQUENCE + (7 - i)));
         delayMicroseconds(800);
