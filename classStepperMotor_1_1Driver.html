@@ -112,12 +112,15 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a6446035c8db46ba4daa04ea890545dc8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classStepperMotor_1_1Driver.html#a6446035c8db46ba4daa04ea890545dc8">setStepsPerRotation</a> (uint16_t steps)</td></tr>
 <tr class="memdesc:a6446035c8db46ba4daa04ea890545dc8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the steps needed for one complete rotation.  <a href="#a6446035c8db46ba4daa04ea890545dc8">More...</a><br /></td></tr>
 <tr class="separator:a6446035c8db46ba4daa04ea890545dc8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1bdfe3c00eeadc598401b42f68ba0f4c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classStepperMotor_1_1Driver.html#a1bdfe3c00eeadc598401b42f68ba0f4c">setWaiter</a> (void(*waiter)(unsigned int))</td></tr>
+<tr class="memdesc:a1bdfe3c00eeadc598401b42f68ba0f4c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set a custom waiter.  <a href="#a1bdfe3c00eeadc598401b42f68ba0f4c">More...</a><br /></td></tr>
+<tr class="separator:a1bdfe3c00eeadc598401b42f68ba0f4c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Driver for an 8-step stepper motor </p>
 <h2>Example</h2>
-<div class="fragment"><div class="line"><span class="keyword">using</span> <a class="code" href="classStepperMotor_1_1Driver.html">StepperMotor::Driver</a>;</div><div class="line"></div><div class="line"><a class="code" href="classStepperMotor_1_1Driver.html#af99954331dde59901aa5be5ce681d75d">Driver</a> motor({2, 3, 4, 5});</div><div class="line"></div><div class="line"><span class="keywordtype">void</span> loop() {</div><div class="line">    motor.turn(-90);</div><div class="line">    delay(1000);</div><div class="line">    motor.turnTo(0);</div><div class="line">    delay(3000);</div><div class="line">}</div></div><!-- fragment --> 
-<p>Definition at line <a class="el" href="stepper__motor_8h_source.html#l00027">27</a> of file <a class="el" href="stepper__motor_8h_source.html">stepper_motor.h</a>.</p>
+<div class="fragment"><div class="line"><span class="keyword">using</span> Stepper = <a class="code" href="classStepperMotor_1_1Driver.html">StepperMotor::Driver</a>;</div><div class="line"></div><div class="line">Stepper motor({2, 3, 4, 5});</div><div class="line"></div><div class="line"><span class="keywordtype">void</span> loop() {</div><div class="line">    motor.<a class="code" href="classStepperMotor_1_1Driver.html#aed8b389ea5ee67016254a62d0f95c36d">turn</a>(-90);</div><div class="line">    delay(1000);</div><div class="line">    motor.turnTo(0);</div><div class="line">    delay(3000);</div><div class="line">}</div></div><!-- fragment --> 
+<p>Definition at line <a class="el" href="stepper__motor_8h_source.html#l00024">24</a> of file <a class="el" href="stepper__motor_8h_source.html">stepper_motor.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="af99954331dde59901aa5be5ce681d75d"></a>
 <div class="memitem">
@@ -141,7 +144,7 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="stepper__motor_8cpp_source.html#l00015">15</a> of file <a class="el" href="stepper__motor_8cpp_source.html">stepper_motor.cpp</a>.</p>
+<p>Definition at line <a class="el" href="stepper__motor_8cpp_source.html#l00017">17</a> of file <a class="el" href="stepper__motor_8cpp_source.html">stepper_motor.cpp</a>.</p>
 
 </div>
 </div>
@@ -169,7 +172,34 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="stepper__motor_8cpp_source.html#l00061">61</a> of file <a class="el" href="stepper__motor_8cpp_source.html">stepper_motor.cpp</a>.</p>
+<p>Definition at line <a class="el" href="stepper__motor_8cpp_source.html#l00063">63</a> of file <a class="el" href="stepper__motor_8cpp_source.html">stepper_motor.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a1bdfe3c00eeadc598401b42f68ba0f4c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void StepperMotor::Driver::setWaiter </td>
+          <td>(</td>
+          <td class="paramtype">void(*)(unsigned int)&#160;</td>
+          <td class="paramname"><em>waiter</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set a custom waiter. </p>
+<p>Use this if you want to run some code while the motor is turning. Your custom function must wait at least the given amount of microseconds before returning. The default is <code>delayMicroseconds</code>.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">waiter</td><td>The new waiter function. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Definition at line <a class="el" href="stepper__motor_8cpp_source.html#l00067">67</a> of file <a class="el" href="stepper__motor_8cpp_source.html">stepper_motor.cpp</a>.</p>
 
 </div>
 </div>
@@ -196,7 +226,7 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="stepper__motor_8cpp_source.html#l00024">24</a> of file <a class="el" href="stepper__motor_8cpp_source.html">stepper_motor.cpp</a>.</p>
+<p>Definition at line <a class="el" href="stepper__motor_8cpp_source.html#l00026">26</a> of file <a class="el" href="stepper__motor_8cpp_source.html">stepper_motor.cpp</a>.</p>
 
 </div>
 </div>
@@ -223,7 +253,7 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="stepper__motor_8cpp_source.html#l00044">44</a> of file <a class="el" href="stepper__motor_8cpp_source.html">stepper_motor.cpp</a>.</p>
+<p>Definition at line <a class="el" href="stepper__motor_8cpp_source.html#l00046">46</a> of file <a class="el" href="stepper__motor_8cpp_source.html">stepper_motor.cpp</a>.</p>
 
 </div>
 </div>
