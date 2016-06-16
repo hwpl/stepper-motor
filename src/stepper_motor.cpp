@@ -1,3 +1,5 @@
+#include <Arduino.h>
+
 #include "stepper_motor.h"
 
 // Sequence used to turn the stepper motor one step
