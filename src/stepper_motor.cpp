@@ -64,12 +64,16 @@ void StepperMotor::Driver::setStepsPerRotation(uint16_t steps) {
     steps_per_rotation = steps;
 }
 
+void StepperMotor::Driver::setWaiter(void (*waiter)(unsigned int)) {
+    this->waiter = waiter;
+}
+
 
 void StepperMotor::Driver::stepForward() {
     current_step_position = (current_step_position + 1) % steps_per_rotation;
     for(size_t i = 0; i < 8; ++i) {
         executeStep(pgm_read_byte_near(STEP_SEQUENCE + i));
-        delayMicroseconds(800);
+        waiter(800);
     }
 }
 
@@ -77,7 +81,7 @@ void StepperMotor::Driver::stepBackward() {
     current_step_position = (current_step_position + steps_per_rotation - 1) % steps_per_rotation;
     for(size_t i = 0; i < 8; ++i) {
         executeStep(pgm_read_byte_near(STEP_SEQUENCE + (7 - i)));
-        delayMicroseconds(800);
+        waiter(800);
     }
 }
 

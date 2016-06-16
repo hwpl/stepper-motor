@@ -53,11 +53,21 @@ class Driver {
         /// \param steps The steps per rotation.
         void setStepsPerRotation(uint16_t steps);
 
+        /// Set a custom waiter
+        ///
+        /// Use this if you want to run some code while the motor is turning.
+        /// Your custom function must wait at least the given amount of
+        /// microseconds before returning. The default is `delayMicroseconds`.
+        ///
+        /// \param waiter The new waiter function.
+        void setWaiter(void (*waiter)(unsigned int));
+
     private:
         uint8_t pins[4] = {-1, -1, -1, -1};
         uint16_t steps_per_rotation = 510;
         uint16_t current_step_position = 0;
         uint16_t current_degree_position = 0;
+        void (*waiter)(unsigned int) = &delayMicroseconds;
 
         /// Turn the motor one step forward (right).
         void stepForward();
