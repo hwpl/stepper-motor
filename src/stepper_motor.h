@@ -10,9 +10,9 @@ namespace StepperMotor {
 /// ## Example
 ///
 /// ```
-/// using StepperMotor::Driver;
+/// using Stepper = StepperMotor::Driver;
 ///
-/// Driver motor({2, 3, 4, 5});
+/// Stepper motor({2, 3, 4, 5});
 ///
 /// void loop() {
 ///     motor.turn(-90);
